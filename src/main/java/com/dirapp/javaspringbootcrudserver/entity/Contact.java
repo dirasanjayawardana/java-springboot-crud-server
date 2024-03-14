@@ -4,24 +4,20 @@
 
 package com.dirapp.javaspringbootcrudserver.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "contacts")
-
 public class Contact {
 
     @Id
@@ -38,8 +34,11 @@ public class Contact {
     private String email;
 
     @ManyToOne
-    @JoinColumn(name = " username", referencedColumnName = "username")
+    @JoinColumn(name = "username", referencedColumnName = "username")
     private User user;
+
+    @OneToMany(mappedBy = "contact")
+    private List<Address> addresses;
 }
 
 
