@@ -42,6 +42,7 @@ public class Contact {
 }
 
 
+// @Id: Menandakan bahwa atribut id adalah kunci utama (primary key) dari entitas ini.
 
 // @Column(name = "first_name"):
 // Memberitahu program bahwa properti "firstName" akan disimpan di kolom dengan nama "first_name" di dalam tabel basis data. Ini seperti memberi petunjuk tentang bagaimana nama kolom seharusnya.
