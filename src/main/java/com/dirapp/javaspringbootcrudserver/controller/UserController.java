@@ -14,12 +14,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @RestController // menandakan bahwa ini adalah controller
 public class UserController {
 
-    @Autowired // untuk inject object agar tidak null
+    @Autowired // untuk inject object agar tidak null (instansiasi object)
     private UserService userService;
 
-    // membuat controller register dengan return payload WebResponse dengan data string, menggunakan RequestBody dengan struktur data dari payload RegisterUsrRequest
+    // membuat controller register dengan return payload WebResponse dengan data string, menggunakan RequestBody dengan struktur data dari payload RegisterUserRequest
     // menggunakan method POST, dengan tipe data yang dapat diterima dan dikembalikan berupa JSON (atribute consume dan produce tidak wajib)
-    @PostMapping(path = "/api/users", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(
+        path = "/api/users", 
+        consumes = MediaType.APPLICATION_JSON_VALUE, 
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
     public WebResponse<String> register(@RequestBody RegisterUserRequest request){
         // memanggil method register dari userService dengan parameter request
         userService.register(request);
