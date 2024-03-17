@@ -9,6 +9,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.dirapp.javaspringbootcrudserver.entity.User;
 import com.dirapp.javaspringbootcrudserver.payload.RegisterUserRequest;
+import com.dirapp.javaspringbootcrudserver.payload.UserResponse;
 import com.dirapp.javaspringbootcrudserver.repository.UserRepository;
 import com.dirapp.javaspringbootcrudserver.security.BCrypt;
 
@@ -28,6 +29,9 @@ public class UserService {
 
     @Autowired
     private Validator validator; // membuat valiadator, contoh untuk validasi header dan params, agar terpusat di service, sebenarnya bisa melakukanvalidasi di controller
+
+    @Autowired
+    private ValidationService validationService;
 
     // dibuat void karena register tidak mereturn data
     // @Transactional --> Jika semuanya berhasil, maka perubahan akan disimpan di database. Jika ada masalah di tengah jalan, maka semua perubahan akan dibatalkan
@@ -55,4 +59,9 @@ public class UserService {
         userRepository.save(user);
     }
     
+    // mendapatkan user saat ini
+    public UserResponse get(User user){
+        // tidak perlu melakukan query ke database karena data langsung dari parameter
+        return UserResponse.builder().username(user.getUsername()).name(user.getName()).build();
+    }
 }

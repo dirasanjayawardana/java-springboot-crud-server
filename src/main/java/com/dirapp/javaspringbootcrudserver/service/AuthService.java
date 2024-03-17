@@ -53,8 +53,8 @@ public class AuthService {
     }
 
     // function untuk menghitung 30 hari kedepan
-    private Long next30Days(){
-        return System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 30);
+    private Long next30Days() {
+        return (System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 30));
     }
 
 }

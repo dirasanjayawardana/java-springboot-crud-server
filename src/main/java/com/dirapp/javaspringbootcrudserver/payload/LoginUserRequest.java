@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data // membuat setter getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder // untuk mempermudah saat membuat objek
+@Builder // untuk mempermudah saat membuat objek secara langsung
 
 public class LoginUserRequest {
 

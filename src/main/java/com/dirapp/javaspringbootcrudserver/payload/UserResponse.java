@@ -6,14 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data // membuat setter getter
-@NoArgsConstructor
 @AllArgsConstructor
-@Builder // untuk mempermudah saat membuat objek secara langsung
+@NoArgsConstructor
+@Builder // mempermudah saat membuat objek secara langsung
+public class UserResponse {
 
-public class TokenResponse {
-    
-    private String token;
+    private String username;
 
-    private Long expiredAt;
+    private String name;
 
 }

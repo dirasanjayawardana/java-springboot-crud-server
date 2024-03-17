@@ -13,6 +13,9 @@ yang menjalankan repository dan untuk validasi
 ### constoller
 yang mengatur request dan response
 
+### resolver
+untuk mengambil sumber daya yang ada di dalam "classpath" (kelas Java yang dimuat selama runtime) dan memungkinkan aplikasi untuk menyajikannya kepada pengguna melalui HTTP
+
 
 ## Depedensi tambahan
 

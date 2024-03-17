@@ -5,9 +5,13 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dirapp.javaspringbootcrudserver.entity.User;
 import com.dirapp.javaspringbootcrudserver.payload.RegisterUserRequest;
+import com.dirapp.javaspringbootcrudserver.payload.UserResponse;
 import com.dirapp.javaspringbootcrudserver.payload.WebResponse;
 import com.dirapp.javaspringbootcrudserver.service.UserService;
+
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -29,6 +33,17 @@ public class UserController {
         userService.register(request);
         // mengembalikan WebResponse dengan data string yang dibentuk dengan builder karena telah menggunakan anotasi builder dipayload WebResponse 
         return WebResponse.<String>builder().data("OK").errors(null).build();
+    }
+
+
+    // mengambil data user saat ini, akan menjalankan UserArgumentResolver untuk mengecek apakah user sudah login dan membawa token
+    @GetMapping(
+        path = "/api/users/current",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public WebResponse<UserResponse> get(User user){
+        UserResponse userResponse = userService.get(user);
+        return WebResponse.<UserResponse>builder().data(userResponse).errors(null).build();
     }
     
 }

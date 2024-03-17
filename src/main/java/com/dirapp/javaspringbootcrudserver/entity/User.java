@@ -31,7 +31,7 @@ public class User {
     private String password;
 
     private String name;
-    
+
     private String token;
 
     @Column(name = "token_expired_at")

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data // membuat setter getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder // mempermudah saat membuat objek
+@Builder // mempermudah saat membuat objek secara langsung
 
 public class WebResponse<T> {
 
