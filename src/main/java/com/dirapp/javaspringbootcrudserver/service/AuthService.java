@@ -1,5 +1,6 @@
 package com.dirapp.javaspringbootcrudserver.service;
 
+import java.time.Instant;
 import java.util.Set;
 import java.util.UUID;
 
@@ -54,7 +55,12 @@ public class AuthService {
 
     // function untuk menghitung 30 hari kedepan
     private Long next30Days() {
-        return (System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 30));
+        Instant now = Instant.now();
+        Instant next30Days = now.plusSeconds(30 * 24 * 60 * 60); // Tambahkan 30 hari ke waktu sekarang
+        return next30Days.toEpochMilli(); // Konversi ke milidetik sejak Epoch Unix
     }
+    // private Long next30Days() {
+    //     return System.currentTimeMillis() + (1000 * 60 * 60 * 24 * 30);
+    // }
 
 }

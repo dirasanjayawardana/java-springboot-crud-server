@@ -2,6 +2,9 @@ package com.dirapp.javaspringbootcrudserver.resolver;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+
+import java.time.Instant;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpStatus;
@@ -29,7 +32,8 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
     }
 
     @Override
-    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer, NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+    public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
+            NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpServletRequest servletRequest = (HttpServletRequest) webRequest.getNativeRequest();
         String token = servletRequest.getHeader("X-API-TOKEN");
         log.info("TOKEN {}", token);
@@ -42,11 +46,15 @@ public class UserArgumentResolver implements HandlerMethodArgumentResolver {
         User user = userRepository.findFirstByToken(token)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized"));
 
-        // cek apakah token sudah expired
         log.info("USER {}", user);
-        if (user.getTokenExpiredAt() < System.currentTimeMillis()) {
+
+        // cek apakah token sudah expired
+        if (user.getTokenExpiredAt() < Instant.now().toEpochMilli()) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
         }
+        // if (user.getTokenExpiredAt() < System.currentTimeMillis()) {
+        // throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
+        // }
 
         return user;
     }
