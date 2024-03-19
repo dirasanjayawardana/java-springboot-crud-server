@@ -1,5 +1,6 @@
 package com.dirapp.javaspringbootcrudserver.service;
 
+import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +10,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.dirapp.javaspringbootcrudserver.entity.User;
 import com.dirapp.javaspringbootcrudserver.payload.RegisterUserRequest;
+import com.dirapp.javaspringbootcrudserver.payload.UpdateUserRequest;
 import com.dirapp.javaspringbootcrudserver.payload.UserResponse;
+import com.dirapp.javaspringbootcrudserver.payload.WebResponse;
 import com.dirapp.javaspringbootcrudserver.repository.UserRepository;
 import com.dirapp.javaspringbootcrudserver.security.BCrypt;
 
@@ -63,5 +66,25 @@ public class UserService {
     public UserResponse get(User user){
         // tidak perlu melakukan query ke database karena data langsung dari parameter
         return UserResponse.builder().username(user.getUsername()).name(user.getName()).build();
+    }
+
+    // update user
+    public UserResponse update(User user, UpdateUserRequest request){
+        validationService.validate(request);
+
+        // jika pada request name ada isinya, maka lakukan perubahan pada name
+        if(Objects.nonNull(request.getName())){
+            user.setName(request.getName());
+        }
+
+        // jika pada request password ada isinya, maka lakukan perubahan pada password yang sudah di BCrypt
+        if(Objects.nonNull(request.getPassword())){
+            user.setPassword(BCrypt.hashpw(request.getPassword(), BCrypt.gensalt()));
+        }
+
+        // simpan perubahan
+        userRepository.save(user);
+
+        return UserResponse.builder().name(user.getName()).username(user.getUsername()).build();
     }
 }
