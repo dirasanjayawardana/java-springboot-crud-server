@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dirapp.javaspringbootcrudserver.entity.User;
 import com.dirapp.javaspringbootcrudserver.payload.RegisterUserRequest;
+import com.dirapp.javaspringbootcrudserver.payload.UpdateUserRequest;
 import com.dirapp.javaspringbootcrudserver.payload.UserResponse;
 import com.dirapp.javaspringbootcrudserver.payload.WebResponse;
 import com.dirapp.javaspringbootcrudserver.service.UserService;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 
@@ -46,4 +48,15 @@ public class UserController {
         return WebResponse.<UserResponse>builder().data(userResponse).errors(null).build();
     }
     
+
+    // update user saat ini
+    @PatchMapping(
+        path = "/api/users/current",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public WebResponse<UserResponse> update(User user, @RequestBody UpdateUserRequest request){
+        UserResponse userResponse = userService.update(user, request);
+        return WebResponse.<UserResponse>builder().data(userResponse).build();
+    }
 }

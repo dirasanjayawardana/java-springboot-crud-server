@@ -18,7 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.dirapp.javaspringbootcrudserver.entity.User;
 import com.dirapp.javaspringbootcrudserver.repository.UserRepository;
 
-// jadi sekarang, setiap ada controller yang butuh data User, maka akan secara otomatis menggunakan UserArgumentResolver untuk mendapatkan datanya
+// jadi sekarang, setiap ada controller yang butuh data User, maka akan secara otomatis menggunakan UserArgumentResolver untuk mendapatkan datanya, sekaligus akan dilakukan validasi
 @Component
 @Slf4j // untuk melihat log
 public class UserArgumentResolver implements HandlerMethodArgumentResolver {
