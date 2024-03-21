@@ -2,10 +2,12 @@ package com.dirapp.javaspringbootcrudserver.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dirapp.javaspringbootcrudserver.entity.User;
 import com.dirapp.javaspringbootcrudserver.payload.LoginUserRequest;
 import com.dirapp.javaspringbootcrudserver.payload.TokenResponse;
 import com.dirapp.javaspringbootcrudserver.payload.WebResponse;
@@ -27,6 +29,16 @@ public class AuthController {
     public WebResponse<TokenResponse> login(@RequestBody LoginUserRequest request) {
         TokenResponse tokenResponse = authService.login(request);
         return WebResponse.<TokenResponse>builder().data(tokenResponse).build();
+    }
+
+    @DeleteMapping(
+        path = "/api/auth/logout",
+        produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public WebResponse<String> logout(User user) {
+        authService.logout(user);
+        
+        return WebResponse.<String>builder().data("OK").errors(null).build();
     }
     
 }
